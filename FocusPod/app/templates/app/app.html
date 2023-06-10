@@ -11,7 +11,8 @@
     <div class="col container">
         <h1>To Do List</h1>
         <form class="task_form" method="POST">
-            <input type="text" name="task_input" placeholder="Write task">
+            {% csrf_token %}
+            {{form.as_p}}
             <input type="submit" value="Add">
         </form>
         <div class="task_list">
