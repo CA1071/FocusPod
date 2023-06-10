@@ -18,6 +18,10 @@
         <div class="task_list">
             {% for task in tasks %}
                 <p>{{task.task_content}}</p>
+                <form action="{% url 'delete_task' task.id %}" method="POST" class="delete-form">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form>
             {% endfor %}
         </div>
     </div>

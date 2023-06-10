@@ -13,7 +13,11 @@ def home(request):
             return redirect('home')
     else:
         form = TaskForm()
-
     tasks = Task.objects.all()
     context = {"tasks":tasks,'form':form}
     return render(request,'app/app.html',context)
+
+def delete_task(request,pk):
+    task = Task.objects.get(pk=pk)
+    task.delete()
+    return redirect('home')
