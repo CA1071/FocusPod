@@ -29,10 +29,69 @@
     <div>
         <h1>FocusPod</h1>
     </div>
-    <div>Timer Controls</div>
+    <div>
+        <div id="timer"></div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+
+    </div>
     </div>
     <div class="col">
     <h1>Ambience</h1>
     </div>
 </div>
+
+<script>
+    var timerElement = document.getElementById('timer');
+    var intervalId;
+    var initialMinutes=25;
+    var initialSeconds = 0;
+    var minutes, seconds;
+
+    function startTimer(){
+        //calculating the total time in seconds 
+        var totalTime = initialMinutes * 60 + initialSeconds;
+        //update the timer element initially
+        updateTimer(initialMinutes,initialSeconds);
+        intervalId=setInterval(function(){
+            //decrement the seconds
+            totalTime--;
+            //calculate the minutes and seconds
+            minutes = Math.floor(totalTime/60);
+            seconds = totalTime%60;
+            //update the timer element
+            updateTimer(minutes,seconds);
+            //check if the timer has reached 0 
+            if(totalTime <= 0){
+                clearInterval(intervalId);
+                alert('Time is up!');
+            }
+        },1000);
+    }
+
+    function stopTimer(){
+        clearInterval(intervalId);
+
+    }
+
+    function resetTimer(){
+        stopTimer();
+        minutes = initialMinutes;
+        seconds = initialSeconds;
+        updateTimer(minutes,seconds)
+    }
+
+    function updateTimer(minutes,seconds){
+        // format the minutes and seconds with leading zeros
+        var formattedMinutes = minutes.toString().padStart(2,'0');
+        var formattedSeconds = seconds.toString().padStart(2,'0');
+        
+        //update the timer element with the formatted time     
+        timerElement.textContent = formattedMinutes + ":" + formattedSeconds;
+    }
+
+</script>
+
+
 {% endblock %}
