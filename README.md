@@ -13,7 +13,7 @@ _______________________
 
 ## Introduction 
 
-
+This is version 3 of FocusPod, this version includes a database, that will save your tasks for the next time you open the app.
 
 _______________________
 
