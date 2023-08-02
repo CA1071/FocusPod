@@ -23,14 +23,44 @@
     .timer_controls{
         padding-top:10%;
     }
+    .timer-icon{
+        width:20px;
+        height:20px;
+    }
     .add_btn{
-        font-weight: bolder;
+        border-radius: 50%;
+        background-color: white;
+        border:none;
+    }
+    .add_btn:hover{
+        border-radius: 50%;
+        color:darkgreen;
+    }
+    .delete_btn{
+        border-radius: 50%;
+        background-color: white;
+        border: none;
+    }
+    .delete_btn:hover{
+        color:darkred;
     }
 
+    .timer_btn{
+        border: none;
+        border-radius:50%;
+        padding-top:20px;
+        padding-bottom:20px;
+        padding-left:20px;
+        padding-right:20px;
+    }
     audio::-webkit-media-controls-timeline,
     video::-webkit-media-controls-timeline {
     display: none;
-}
+    }
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+        display: none;
+    }
 </style>
 <div class="row mainbody">
     <div class="col container">
@@ -38,14 +68,14 @@
         <form class="task_form" method="POST">
             {% csrf_token %}
             {{form.task_content}}
-            <input type="submit" value="+" class="add_btn">
+            <button type="submit" class="add_btn"><i class="fa-solid fa-plus"></i></button>
         </form>
         <div class="task_list">
             {% for task in tasks %}
-                {{task.task_content}}
-                <form action="{% url 'delete_task' task.id %}" method="POST" class="delete-form">
+            <form action="{% url 'delete_task' task.id %}" method="POST" class="delete-form">
                     {% csrf_token %}
-                    <input type="submit" value="Delete" class="delete_btn">
+                    <div>{{task.task_content}}</div>
+                    <button type="submit" class="delete_btn"><i class="fa-solid fa-trash"></i></button>
                 </form>
             {% endfor %}
         </div>
@@ -57,28 +87,28 @@
     <div>
         <div id="timer">25:00</div>
         <div class="timer_controls">
-            <button onclick="startTimer()">Start</button>
-            <button onclick="stopTimer()">Stop</button>
-            <button onclick="resetTimer()">Reset</button>
+            <button class="timer_btn" onclick="startTimer()"><i class="fa fa-play timer-icon" aria-hidden="true"></i></button>
+            <button class="timer_btn" onclick="stopTimer()"><i class="fa fa-pause timer-icon" aria-hidden="true"></i></button>
+            <button class="timer_btn" onclick="resetTimer()"><i class="fa-solid fa-rotate-right timer-icon"></i></button>
         </div>
     </div>
     </div>
     <div class="col">
     <h1>Ambience</h1>
     <div>
-        <p>City</p>
+        <p class="ambience_title">City</p>
         <audio controls controlsList="nodownload noplaybackrate" loop>
             <source src="{% static 'ambient_sounds/city.mp3' %}" type="audio/mpeg">
         </audio>
     </div>
     <div>
-        <p>Rain</p>
+        <p class="ambience_title">Rain</p>
         <audio controls controlsList="nodownload noplaybackrate" loop>
             <source src="{% static 'ambient_sounds/rain.mp3' %}" type="audio/mpeg">
         </audio>
     </div>
     <div>
-        <p>Forest</p>
+        <p class="ambience_title">Forest</p>
         <audio controls controlsList="nodownload noplaybackrate" loop>
             <source src="{% static 'ambient_sounds/forest.mp3' %}" type="audio/mpeg">
         </audio>
