@@ -8,7 +8,16 @@
         display: flex;
         justify-content: space-around;
     }
+    
+    /*  to do list styling */
 
+    input[type=checkbox]{
+        accent-color: black;
+    }
+    .task_content{
+        font-size: 25px;
+    }
+    /* timer styling */ 
     #timer {
         display: flex;
         align-items: center;
@@ -44,14 +53,18 @@
     .delete_btn:hover{
         color:darkred;
     }
-
     .timer_btn{
-        border: none;
+        border: solid;
+        border-color: #FFFCF6;
         border-radius:50%;
         padding-top:20px;
         padding-bottom:20px;
         padding-left:20px;
         padding-right:20px;
+    }
+    .timer_btn:hover{
+        border-color: lightgreen;
+        color: lightgreen;
     }
     audio::-webkit-media-controls-timeline,
     video::-webkit-media-controls-timeline {
@@ -74,7 +87,12 @@
             {% for task in tasks %}
             <form action="{% url 'delete_task' task.id %}" method="POST" class="delete-form">
                     {% csrf_token %}
-                    <div>{{task.task_content}}</div>
+                    
+                    <label class="task_content">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        {{task.task_content}}
+                    </label>
                     <button type="submit" class="delete_btn"><i class="fa-solid fa-trash"></i></button>
                 </form>
             {% endfor %}
